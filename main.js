@@ -15,6 +15,7 @@ const gameCtx = gameCanvas.getContext("2d")
   let q3 = new Question(800, 320, 25, 25, "cock")
   animate()
 function draw() {
+  document.getElementById("name").innerText = gameCanvas.width + " " + gameCanvas.height
   gameCanvas.width = window.innerWidth
   gameCanvas.height = 500
   gameCtx.clearRect(0,0, gameCanvas.width, gameCanvas.height)
