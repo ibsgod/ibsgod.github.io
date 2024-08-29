@@ -4,15 +4,26 @@ class Question extends Entity {
     this.section = section
     this.animating = false
     this.origy = y
+    this.colliding = false
   }
 
   tick() {
-    if (this.collided["mario"] == "down") {
+    if (this.collided["mario"] != "down") {
+      this.colliding = false
+    }
+    if (this.collided["mario"] == "down" && !this.colliding) {
       cock(this.section)
+      this.colliding = true
       this.animating = true
     }
     if (this.animating) {
-
+      this.y -= 0.8
+      if (this.origy - this.y > 9) {
+        this.animating = false
+      }
+    }
+    else if(this.origy != this.y) {
+      this.y += 0.8
     }
   }
 }

@@ -1,6 +1,6 @@
+import Mario from '/mario.js' 
+
 const gameCanvas = document.getElementById("gameCanvas");
-gameCanvas.width = window.innerWidth
-gameCanvas.height = 500
 const gameCtx = gameCanvas.getContext("2d")
 
 
@@ -13,16 +13,14 @@ const gameCtx = gameCanvas.getContext("2d")
   let q1 = new Question(200, 320, 25, 25, "projects")
   let q2 = new Question(500, 320, 25, 25, "experience")
   let q3 = new Question(800, 320, 25, 25, "cock")
-  animate();
-
-function draw() { 
+  animate()
+function draw() {
+  gameCanvas.width = window.innerWidth
+  gameCanvas.height = 500
   gameCtx.clearRect(0,0, gameCanvas.width, gameCanvas.height)
   Entity.allEntities.forEach((entity) => entity.draw(gameCtx))
 }
 
-function cock(text) {
-  document.getElementById("section").innerText = text;
-}
 
 function animate(time) {
   m.move()
@@ -34,3 +32,4 @@ function animate(time) {
   gameCtx.restore();
   requestAnimationFrame(animate)
 }
+

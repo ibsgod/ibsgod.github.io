@@ -1,3 +1,4 @@
+
 class Mario extends Entity {
   constructor(x, y, w, h) {
     super(x, y, w, h, "mario", "mario.png") 
@@ -28,6 +29,8 @@ class Mario extends Entity {
     if (this.controls.up && this.jumpRelease && this.onGround) {
       this.yspd -= 4
       this.jumpRelease = false
+      this.sound = new Audio("jump.mp3")
+      this.sound.play();
     }
     else if (!this.controls.up) {
       this.jumpRelease = true
@@ -36,3 +39,4 @@ class Mario extends Entity {
   } 
 
 }
+export default Mario

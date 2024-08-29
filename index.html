@@ -6,14 +6,20 @@
 <body>
   <h1 id="name"> Sankeeth Ganeswaran</h1>
   <marquee> i be doin cs and shit </marquee>
-  <h2 id="section"> hit da blocks </h2>
+  <div id="main">
+    <h2 id="section"> hit da blocks </h2>
+    <div class="hlist">
+    </div>
+  </div>
   <canvas id="gameCanvas"></canvas>
+  <script src="util.js" ></script>
+  <script src="node_modules\howler\src\howler.core.js"></script>
   <script src="controls.js"></script>
   <script src="entity.js"></script>
-  <script src="mario.js"></script>
+  <script src="mario.js" type="module"></script>
   <script src="question.js"></script>
   <script src="ground.js"></script>
-  <script src="main.js"></script>
+  <script src="main.js" type="module"></script>
   <img src="mario.png" height="0" width="0" />
   <img src="marioflip.png" height="0" width="0" />
 </body>
