@@ -22,7 +22,7 @@ const gameCtx = gameCanvas.getContext("2d")
   document.getElementById("section").innerText = right.x + " " + right.y
   document.onmousedown = (event) => {
     var rect = gameCanvas.getBoundingClientRect();
-    document.getElementById("name").innerText = (event.clientX - rect.left) + " " + (event.clientX - rect.left)
+    document.getElementById("name").innerText = (event.clientX - rect.left) + " " + (event.clientY - rect.top)
     arrows.forEach((arrow) => {
       if (pointInBox(event.clientX - rect.left, event.clientY - rect.top, {x: arrow.x, y: arrow.y, w: arrow.w, h: arrow.h})) {
       m.controls[arrow.name] = true
