@@ -1,9 +1,6 @@
 class Controls {
     constructor(type) {
-        this.up = false;
-        this.left = false;
-        this.right = false;
-        this.down = false;
+        this.reset()
 
         switch(type) {
             case "KEYS":
@@ -14,8 +11,15 @@ class Controls {
                 break;
         }
     }
+    reset() {
+        this.up = false;
+        this.left = false;
+        this.right = false;
+        this.down = false;
+    }
     #addKeyboardListeners() {
         document.onkeydown = (event)=>{
+
             switch(event.key) {
                 case "a":
                 case "ArrowLeft":
