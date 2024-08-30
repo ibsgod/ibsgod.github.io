@@ -30,6 +30,7 @@ const gameCtx = gameCanvas.getContext("2d")
     
   }
   document.onmouseup = (event) => {
+    document.getElementById("name").innerText = right.x + " " + right.y
     m.controls.reset()
   }
 function draw() {
