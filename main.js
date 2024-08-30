@@ -19,8 +19,9 @@ const gameCtx = gameCanvas.getContext("2d")
   let up = new Arrow(gameCanvas.width / 20 * 18, (gameCanvas.height - 100) / 1.5, 25, 55, "up", m.controls)
   let arrows = [left, right, up]
   animate()
-  document.getElementById("section").innerText = right.x + " " + right.y
+  document.getElementById("section").innerText = up.x + " " + up.y
   document.onmousedown = (event) => {
+    document.getElementById("marquee").innerText = "down"
     var rect = gameCanvas.getBoundingClientRect();
     document.getElementById("name").innerText = (event.clientX - rect.left) + " " + (event.clientY - rect.top)
     arrows.forEach((arrow) => {
@@ -31,6 +32,7 @@ const gameCtx = gameCanvas.getContext("2d")
     
   }
   document.onmouseup = (event) => {
+    document.getElementById("marquee").innerText = "up"
     m.controls.reset()
   }
 function draw() {
