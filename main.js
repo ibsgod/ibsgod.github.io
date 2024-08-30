@@ -20,8 +20,8 @@ const gameCtx = gameCanvas.getContext("2d")
   let arrows = [left, right, up]
   animate()
   document.onmousedown = (event) => {
-    document.getElementById("name").innerText = event.clientX - rect.left + " " + event.clientX - rect.left
     var rect = gameCanvas.getBoundingClientRect();
+    document.getElementById("name").innerText = event.clientX - rect.left + " " + event.clientX - rect.left
     arrows.forEach((arrow) => {
       if (pointInBox(event.clientX - rect.left, event.clientY - rect.top, {x: arrow.x, y: arrow.y, w: arrow.w, h: arrow.h})) {
       m.controls[arrow.name] = true
