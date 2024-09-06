@@ -7,24 +7,21 @@ const gameCtx = gameCanvas.getContext("2d")
 
 
   gameCanvas.width = window.innerWidth
-  gameCanvas.height = 500
+  gameCanvas.height = window.innerHeight
 
   let m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25)
-  let g = new Ground(-500, 450, 2000, 1000)
-  let q1 = new Question(gameCanvas.width / 4, (gameCanvas.height) / 1.5, 25, 25, "projects")
-  let q2 = new Question(gameCanvas.width / 4 * 2, (gameCanvas.height) / 1.5, 25, 25, "experience")
+  let g = new Ground(0, gameCanvas.height - 100, gameCanvas.width * 2, 1000)
+  let q1 = new Question(gameCanvas.width / 4, (gameCanvas.height) / 1.5, 25, 25, "Projects")
+  let q2 = new Question(gameCanvas.width / 4 * 2, (gameCanvas.height) / 1.5, 25, 25, "Experience")
   let q3 = new Question(gameCanvas.width / 4 * 3, (gameCanvas.height) / 1.5, 25, 25, "cock")
   let right = new Arrow(gameCanvas.width / 20 * 19 - 28, (gameCanvas.height - 25) / 1.5, 55, 25, "right", m.controls)
   let left = new Arrow(gameCanvas.width / 20 * 17, (gameCanvas.height - 25) / 1.5, 55, 25, "left", m.controls)
   let up = new Arrow(gameCanvas.width / 20 * 18, (gameCanvas.height - 100) / 1.5, 25, 55, "up", m.controls)
   let arrows = [left, right, up]
   animate()
-  document.getElementById("section").innerText = up.x + " " + up.y
   document.onmousemove = (event) => {
     m.controls.reset()
-    document.getElementById("marquee").innerText = "down"
     var rect = gameCanvas.getBoundingClientRect();
-    document.getElementById("name").innerText = (event.clientX - rect.left) + " " + (event.clientY - rect.top)
     arrows.forEach((arrow) => {
       if (pointInBox(event.clientX - rect.left, event.clientY - rect.top, {x: arrow.x, y: arrow.y, w: arrow.w, h: arrow.h})) {
       m.controls[arrow.name] = true
@@ -35,7 +32,7 @@ const gameCtx = gameCanvas.getContext("2d")
 
 function draw() {
   gameCanvas.width = window.innerWidth
-  gameCanvas.height = 500
+  gameCanvas.height = window.innerHeight
   gameCtx.clearRect(0,0, gameCanvas.width, gameCanvas.height)
   Entity.allEntities.forEach((entity) => entity.draw(gameCtx))
 }

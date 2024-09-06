@@ -1,15 +1,13 @@
 let jsondata = ""
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("hivhjg")
   fetch('text.json')
     .then(response => response.json())
     .then(data => {
       jsondata = data;
-      console.log("hi")
     });
 })
 
-function cock(text) {
+function changeSection(text) {
   document.getElementById("main").animate([
     {
       opacity:0
@@ -48,8 +46,6 @@ function cock(text) {
 }
 
 function pointInBox(x, y, box) {
-  console.log(x, y)
-  console.log(box)
   if (x >= box.x && x <= box.x + box.w && y >= box.y && y <= box.y + box.h) {
     return true
   }

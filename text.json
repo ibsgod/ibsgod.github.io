@@ -1,54 +1,72 @@
 {
-  "projects":
+  "Projects":
   [
     {
-      "title": "self driving car",
+      "title": "Self-Driving Car",
       "points": [
-        "jit trippin",
-        "dsf",
-        "sdfsd",
-        "sdfsd"
+        "Neural network simulation made in JavaScript",
+        "Car learns to navigate randomly generated traffic",
+        "Real-time visualizer of neural network",
+        "Save-load functionality of networks"
       ]
     },
     {
-      "title": "leaguetd",
+      "title": "LeagueTD",
       "points": [
-        "jit trippin"
+        "Tower Defense game made in Pygame",
+        "Original assets created based off of League of Legends characters",
+        "Fleshed out animations, sound effects, and save-load system",
+        "Campaign and endless mode"
       ]
     },
     {
-      "title": "creature clash",
+      "title": "Creature Clash",
       "points": [
-        "jit trippin",
-        "sfsdf"
+        "Physics-based 2D mobile game made in Unity",
+        "Online multiplayer lobby implemented using PUN framework",
+        "Composed original thematic music"
       ]
     },
     {
-      "title": "Pornhub.com",
+      "title": "Jhong",
       "points": [
-        "jit trippin",
-        "sfsdf"
+        "3D souls-like game made in Unity",
+        "Created original 3D models and animations",
+        "Polished HDR visual effects",
+        "Designed interactive enemy AI"
       ]
     }
   ],
-  "experience":
+  "Experience":
   [
     {
-      "title": "ai arena",
+      "title": "ArenaX Labs",
       "points": [
-        "jit trippin"
+        "Game Developer - JavaScript/TypeScript, ThreeJS, Python",
+        "Worked on AI Arena, a platform fighter about training AI fighters",
+        "Core combat mechanics, projectile physics, collision handling",
+        "Designed an interactive UI and in-game tutorial in React",
+        "Developed enemy AI for various situations",
+        "Built minigames to train reinforcement learning models",
+        "Monitored player community, making QOL and game balance changes"
       ]
     },
     {
-      "title": "luckyvr",
+      "title": "LuckyVR",
       "points": [
-        "jit trippin"
+        "Gameplay Programmer - Unity, C#",
+        "Developed features for flagship game PokerStars VR for PC, Meta Quest, and PSVR", 
+        "Implemented functionality for various assets in the VR environment",
+        "Fixed and improved performance for various online multiplayer interactions"
       ]
     },
     {
-      "title": "ford",
+      "title": "Ford",
       "points": [
-        "jit trippin"
+        "Autonomous Vehicle Android Developer - Java, Kotlin, C++",
+        "Worked on CAN and SOA messaging firmware for climate control system",
+        "Designed various infotainment system features",
+        "Implemented TTS service for autonomous driving mode"
       ]
     }
   ],

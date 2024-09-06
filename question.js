@@ -12,7 +12,7 @@ class Question extends Entity {
       this.colliding = false
     }
     if (this.collided["mario"] == "down" && !this.colliding) {
-      cock(this.section)
+      changeSection(this.section)
       this.colliding = true
       this.animating = true
     }
