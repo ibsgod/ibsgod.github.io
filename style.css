@@ -49,6 +49,9 @@ body{
     vertical-align: top;
     
 }
+.hlistitem:hover {
+    transform: scale(1.2);
+  }
 .listheading {
     color: blue;
     position: relative;
