@@ -20,6 +20,7 @@ function changeSection(text) {
   });
   let sound = new Audio("block.mp3")
   sound.play();
+  console.log(jsondata)
   document.getElementById("section").innerText = text;
   let listMain = document.getElementsByClassName("hlist")[0]
   var arr = Array.prototype.slice.call(listMain.childNodes)
@@ -33,8 +34,16 @@ function changeSection(text) {
     let newHeading = document.createElement("h3")
     newHeading.classList.add("listheading")
     let newTextNode = document.createTextNode(jsondata[text][i].title)
-    newHeading.appendChild(newTextNode)
     newListItem.appendChild(newHeading)
+    if (jsondata[text][i].link) {
+      let newLink = document.createElement("a")
+      newLink.appendChild(newTextNode)
+      newHeading.appendChild(newLink)
+      newLink.href = jsondata[text][i].link
+    }
+    else {
+      newHeading.appendChild(newTextNode)
+    }
     for (let j = 0; j < jsondata[text][i].points.length; j++) {
       let newPoint = document.createElement("p")
       newPoint.classList.add("itempoint")

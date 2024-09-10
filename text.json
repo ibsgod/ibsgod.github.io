@@ -73,22 +73,25 @@
   "Extras":
   [
     {
-      "title": "",
+      "title": "Resume",
       "points": [
         ""
-      ]
+      ],
+      "link": "3B_sankeeth.pdf"
     },
     {
-      "title": "",
+      "title": "GitHub",
       "points": [
         ""
-      ]
+      ],
+      "link": "https://github.com/ibsgod/"
     },
     {
-      "title": "",
+      "title": "LinkedIn",
       "points": [
         ""
-      ]
+      ],
+      "link": "https://www.linkedin.com/in/sankeeth-ganeswaran-7a9418183/"
     }
   ]
 }

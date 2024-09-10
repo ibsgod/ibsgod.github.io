@@ -8,7 +8,6 @@ const gameCtx = gameCanvas.getContext("2d")
 
   gameCanvas.width = window.innerWidth
   gameCanvas.height = window.innerHeight
-
   let m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25)
   let g = new Ground(0, gameCanvas.height - 100, gameCanvas.width * 2, 1000)
   let q1 = new Question(gameCanvas.width / 4, gameCanvas.height - 200, 25, 25, "Projects")
@@ -31,7 +30,7 @@ const gameCtx = gameCanvas.getContext("2d")
   }
 
 function draw() {
-  gameCanvas.width = window.innerWidth
+  gameCanvas.width = window.innerWidth * 2
   gameCanvas.height = window.innerHeight
   gameCtx.clearRect(0,0, gameCanvas.width, gameCanvas.height)
   Entity.allEntities.forEach((entity) => entity.draw(gameCtx))

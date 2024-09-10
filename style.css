@@ -7,9 +7,9 @@ body{
     /* background-color:transparent; */
 
     margin:0;
-    /* overflow:hidden; */
+    overflow:auto;
     /* display:flex; */
-    flex-direction:column;
+    /* flex-direction:column; */
     justify-content:center;
     text-align: center;
     align-items:center;
@@ -17,30 +17,33 @@ body{
 #main {
     background-color:transparent;
     /* display:flex; */
-    flex-direction:column;
+    /* flex-direction:column; */
     justify-content:center;
     align-items:center;
 }
 #bg {
-    background:transparent;
+    background:rgb(67, 195, 255);
     margin:0;
     padding: 0;
+    width: fit-content;
 }
 
 .hlist {
-    /* overflow:hidden; */
-    display:inline-block;
+    overflow:auto;
+    display:inline;
     justify-content:center;
     align-items:center;
     position: relative;
     vertical-align: top;
+    /* white-space: nowrap; */
+    text-wrap: nowrap;
 
 }
 .hlistitem {
     margin: 0px 20px 0px 20px;
     background-color: rgba(0, 0, 0, 0);
 
-    /* overflow:hidden; */
+    overflow:auto;
     display:inline-block;
     /* flex-direction:column; */
     justify-content:center;

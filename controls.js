@@ -22,19 +22,19 @@ class Controls {
 
             switch(event.key) {
                 case "a":
-                case "ArrowLeft":
+                // case "ArrowLeft":
                     this.left = true;
                     break;
                 case "d":
-                case "ArrowRight":
+                // case "ArrowRight":
                     this.right = true;
                     break;
                 case "w":
-                case "ArrowUp":
+                // case "ArrowUp":
                     this.up = true;
                     break;
                 case "s":
-                case "ArrowDown":
+                // case "ArrowDown":
                     this.down = true;
                     break;
             }
@@ -42,19 +42,19 @@ class Controls {
         document.onkeyup = (event)=>{
             switch(event.key) {
                 case "a":
-                case "ArrowLeft":
+                // case "ArrowLeft":
                     this.left = false;
                     break;
                 case "d":
-                case "ArrowRight":
+                // case "ArrowRight":
                     this.right = false;
                     break;
                 case "w":
-                case "ArrowUp":
+                // case "ArrowUp":
                     this.up = false;
                     break;
                 case "s":
-                case "ArrowDown":
+                // case "ArrowDown":
                     this.down = false;
                     break;
             }
