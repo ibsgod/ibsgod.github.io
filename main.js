@@ -27,9 +27,9 @@ window.mobileAndTabletCheck = function() {
     return check;
 };
 
-if (window.mobileAndTabletCheck()) {
-    document.getElementById("section").innerText = "Hit the blocks to learn about me! (just touch them since you're on mobile)";
-}
+// if (window.mobileAndTabletCheck()) {
+//     document.getElementById("section").innerText = "Hit the blocks to learn about me! (just touch them since you're on mobile)";
+// }
 let rect = gameCanvas.getBoundingClientRect();
 // Handle mouse movement
 document.onmousemove = (event) => {
