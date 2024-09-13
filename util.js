@@ -24,6 +24,10 @@ function changeSection(text) {
   sound.play();
   document.getElementById("section").innerText = text;
   let listMain = document.getElementsByClassName("hlist")[0]
+  let mouse = document.getElementById("mouse")
+  if (mouse) {
+    document.getElementById("fademain").removeChild(document.getElementById("mouse"))
+  }
   var arr = Array.prototype.slice.call(listMain.childNodes)
     arr.forEach(element => {
       listMain.removeChild(element)

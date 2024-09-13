@@ -8,7 +8,8 @@
         "Car learns to navigate randomly generated traffic",
         "Real-time visualizer of neural network",
         "Save-load functionality of networks"
-      ]
+      ],
+      "link": "https://github.com/ibsgod/Self-Driving-Car"
     },
     {
       "title": "LeagueTD",
@@ -17,7 +18,8 @@
         "Original assets created based off of League of Legends characters",
         "Fleshed out animations, sound effects, and save-load system",
         "Campaign and endless mode"
-      ]
+      ],
+      "link": "https://github.com/ibsgod/LeagueTD"
     },
     {
       "title": "Creature Clash",
@@ -25,7 +27,8 @@
         "Physics-based 2D mobile game made in Unity",
         "Online multiplayer lobby implemented using PUN framework",
         "Composed original thematic music"
-      ]
+      ],
+      "link": "https://github.com/ibsgod/Creature-Clash"
     },
     {
       "title": "Jhong",
@@ -42,7 +45,7 @@
     {
       "title": "ArenaX Labs",
       "points": [
-        "Game Developer - JavaScript/TypeScript, ThreeJS, Python",
+        "Game Developer - TypeScript, ThreeJS, Python",
         "Worked on AI Arena, a platform fighter about training AI fighters",
         "Core combat mechanics, projectile physics, collision handling",
         "Designed an interactive UI and in-game tutorial in React",
@@ -61,7 +64,7 @@
       ]
     },
     {
-      "title": "Ford",
+      "title": "Ford Motor Company",
       "points": [
         "Autonomous Vehicle Android Developer - Java, Kotlin, C++",
         "Worked on CAN and SOA messaging firmware for climate control system",

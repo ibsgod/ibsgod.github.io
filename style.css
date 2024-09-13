@@ -1,18 +1,45 @@
-
+@font-face {
+    font-family: 'YourFontName'; /*a name to be used later*/
+    src: url("Pixelon-E4JEg.otf"); /*URL to font*/
+}
 #name {
+    font-family: 'YourFontName';
     font-size: 40px;
-    margin: 5px;
+    margin: 5px auto;
     margin-top: 0px;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    width: 50%;
+    color: crimson;
+}
+#name:hover {
+    transform: scale(1.1); /* Increase size on hover */
 }
 
 .alert-message {
-    margin: 0px;
+    font-family: 'YourFontName';
+    margin: 0px auto;
+    width: 50%;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    color: green;
+}
+.alert-message:hover {
+    transform: scale(1.1); /* Increase size on hover */
 }
 
 #section {
+    font-family: 'YourFontName';
+    margin: 0px auto;
+    width: 50%;
     margin-top: 10px;
     font-size: 28px;
     margin-bottom:5px;
+    color:rgb(222, 35, 255);
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+
+}
+
+#section:hover {
+    transform: scale(1.1); /* Increase size on hover */
 }
 
 .canvas-container {
@@ -23,7 +50,11 @@
     height: 100vh; */
     z-index: -1;  
 }
-
+#mouse {
+    margin:0px;
+    font-size: 15px;
+    color: rgb(247, 255, 11);
+}
 #gameCanvas {
     width: 200%;
     height: 200%;
@@ -52,6 +83,7 @@
 
 /* Body and Main Section */
 body {
+    font-family: 'YourFontName';
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
@@ -62,6 +94,7 @@ body {
 
 /* Main section styling */
 #main {
+    font-family: 'YourFontName';
     padding: 20px;
     z-index: 1;
     position: relative;
@@ -139,4 +172,5 @@ body {
     background-color: rgba(255, 255, 255, 1); /* Change background on hover */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add more shadow */
 }
+
 
