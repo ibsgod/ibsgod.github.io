@@ -1,4 +1,5 @@
 let jsondata = ""
+let currSection = null
 document.addEventListener("DOMContentLoaded", function () {
   fetch('text.json')
     .then(response => response.json())
@@ -18,9 +19,9 @@ function changeSection(text) {
   ], {
     duration: 1000,
   });
+  currSection = text
   let sound = new Audio("block.mp3")
   sound.play();
-  console.log(jsondata)
   document.getElementById("section").innerText = text;
   let listMain = document.getElementsByClassName("hlist")[0]
   var arr = Array.prototype.slice.call(listMain.childNodes)
