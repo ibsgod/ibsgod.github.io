@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 })
 
 function changeSection(text) {
-  document.getElementById("main").animate([
+  document.getElementById("fademain").animate([
     {
       opacity:0
     },

@@ -13,19 +13,19 @@ const gameCtx = gameCanvas.getContext("2d")
   let q1 = new Question(gameCanvas.width / 4, gameCanvas.height - 200, 25, 25, "Projects")
   let q2 = new Question(gameCanvas.width / 4 * 2, gameCanvas.height - 200, 25, 25, "Experience")
   let q3 = new Question(gameCanvas.width / 4 * 3, gameCanvas.height - 200, 25, 25, "Extras")
-  let right = new Arrow(gameCanvas.width / 20 * 19 - 28, (gameCanvas.height - 25) / 1.5, 55, 25, "right", m.controls)
-  let left = new Arrow(gameCanvas.width / 20 * 17, (gameCanvas.height - 25) / 1.5, 55, 25, "left", m.controls)
-  let up = new Arrow(gameCanvas.width / 20 * 18, (gameCanvas.height - 100) / 1.5, 25, 55, "up", m.controls)
-  let arrows = [left, right, up]
+  // let right = new Arrow(gameCanvas.width / 20 * 19 - 28, (gameCanvas.height - 25) / 1.5, 55, 25, "right", m.controls)
+  // let left = new Arrow(gameCanvas.width / 20 * 17, (gameCanvas.height - 25) / 1.5, 55, 25, "left", m.controls)
+  // let up = new Arrow(gameCanvas.width / 20 * 18, (gameCanvas.height - 100) / 1.5, 25, 55, "up", m.controls)
+  // let arrows = [left, right, up]
   animate()
   document.onmousemove = (event) => {
     m.controls.reset()
     var rect = gameCanvas.getBoundingClientRect();
-    arrows.forEach((arrow) => {
-      if (pointInBox(event.clientX - rect.left, event.clientY - rect.top, {x: arrow.x, y: arrow.y, w: arrow.w, h: arrow.h})) {
-      m.controls[arrow.name] = true
-    }
-    })
+    // arrows.forEach((arrow) => {
+    //   if (pointInBox(event.clientX - rect.left, event.clientY - rect.top, {x: arrow.x, y: arrow.y, w: arrow.w, h: arrow.h})) {
+    //   m.controls[arrow.name] = true
+    // }
+    // })
     
   }
 

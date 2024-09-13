@@ -1,83 +1,147 @@
+
 #name {
-    margin: 0;
     font-size: 40px;
+    margin: 5px;
 }
 
-body{
-    /* background-color:transparent; */
-
-    margin:0;
-    overflow:auto;
-    /* display:flex; */
-    /* flex-direction:column; */
-    justify-content:center;
-    text-align: center;
-    align-items:center;
-}
-#main {
-    background-color:transparent;
-    /* display:flex; */
-    /* flex-direction:column; */
-    justify-content:center;
-    align-items:center;
-}
-#bg {
-    background:rgb(67, 195, 255);
-    margin:0;
-    padding: 0;
-    width: fit-content;
+.alert-message {
+    margin: 0px 0;
 }
 
-.hlist {
-    overflow:auto;
-    display:inline;
-    justify-content:center;
-    align-items:center;
-    position: relative;
-    vertical-align: top;
-    /* white-space: nowrap; */
-    text-wrap: nowrap;
-
-}
-.hlistitem {
-    margin: 0px 20px 0px 20px;
-    background-color: rgba(0, 0, 0, 0);
-
-    overflow:auto;
-    display:inline-block;
-    /* flex-direction:column; */
-    justify-content:center;
-    align-items:center;
-    position: relative;
-    vertical-align: top;
-    
-}
-.hlistitem:hover {
-    transform: scale(1.2);
-  }
-.listheading {
-    color: blue;
-    position: relative;
-    justify-content:center;
-    vertical-align: top;
-
+#section {
+    font-size: 28px;
 }
 
-.itempoint {
-    color: magenta;
-    position: relative;
-    justify-content:center;
-    vertical-align: top;
+
+
+
+
+
+
+
+
+.canvas-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    /* width: 100vw;
+    height: 100vh; */
+    z-index: -1;  
 }
 
-#gameCanvas{
+#gameCanvas {
+    width: 200%;
+    height: 200%;
+    display: block;
+    background: rgb(67, 195, 255);  
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 30px;
+    }
+    .hlistitem {
+        width: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 24px;
+    }
+    .hlistitem {
+        width: 100%;
+    }
+}
+
+
+/* Body and Main Section */
+body {
     margin: 0;
-    background:rgb(67, 195, 255);
-    position: absolute; /*Can also be `fixed`*/
-        left: 0;
-        right: 1;
-        top: 1;
-        bottom: 0;
-        margin: auto;
-    z-index: -1;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    color: #333;
+    text-align: center;
+    background-color: rgb(67, 195, 255); /* Background color for the body */
 }
+
+/* Main section styling */
+#main {
+    padding: 20px;
+    z-index: 1;
+    position: relative;
+}
+
+
+#hlistpar {
+    overflow-x: auto;
+    height:max-content;
+    overflow-y: hidden;
+    transform: rotateX(180deg);
+}
+#hlistpar::-webkit-scrollbar {
+    height: 10px; /* Height of the scrollbar */
+}
+
+#hlistpar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1); /* Background of the scrollbar track */
+}
+
+#hlistpar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3); /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners of the scrollbar thumb */
+    transition: background 0.3s ease; /* Smooth transition on hover */
+}
+
+#hlistpar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5); /* Darker color when hovered */
+}
+
+/* Firefox */
+#hlistpar {
+    scrollbar-width: thin; /* Make scrollbar thin */
+    scrollbar-color: rgba(0, 0, 0, 0.3) rgba(255, 255, 255, 0.1); /* Color of the thumb and track */
+}
+
+/* Edge */
+#hlistpar {
+    -ms-overflow-style: scrollbar; /* Show scrollbar in Edge */
+}
+
+/* Horizontal List */
+/* Horizontal List */
+.hlist {
+    padding:20px;
+    transform: rotateX(180deg);
+    display: flex;
+    flex-wrap: nowrap; /* Prevent blocks from wrapping */
+    justify-content: flex-start; /* Align items to the start */
+    gap: 10px; /* Space between the blocks */
+    width: max-content; /* Allow the hlist to grow based on its content */
+    margin: 0 auto; /* Center the hlist if it doesn't overflow */
+    padding: 10px;
+}
+
+/* List items */
+.hlistitem {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+    display: inline-block;
+    white-space: nowrap; /* Prevent text wrapping */
+    width: auto; /* Let the block grow based on its content */
+    min-width: 250px; /* Minimum width */
+    overflow: hidden; /* Hide overflowed text */
+    text-overflow: ellipsis; /* Add ellipsis for long text */
+}
+
+/* Hover effect */
+.hlistitem:hover {
+    transform: scale(1.1); /* Increase size on hover */
+    background-color: rgba(255, 255, 255, 1); /* Change background on hover */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Add more shadow */
+}
+

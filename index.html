@@ -1,19 +1,32 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-  <title> Sankeeths Portfolio</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sankeeth's Portfolio</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<bg>
 <body>
-  <h1 id="name">Sankeeth Ganeswaran</h1>
-  <marquee id="marquee"> (This website is a work in progress) </marquee>
   <div id="main">
-    <h2 id="section"> Hit the blocks! </h2>
-    <div class="hlist">
+    <h1 id="name">Sankeeth Ganeswaran</h1>
+    <div class="alert-message">
+      Software and Game Developer
+    </div>
+  <div id="fademain">
+    <div id="game">
+      <h2 id="section">Hit the blocks to learn about me!</h2>
+      <div id="hlistpar">
+        <div class="hlist">
+        </div>
+      </div>
     </div>
   </div>
-  <canvas id="gameCanvas"></canvas>
-  <script src="util.js" ></script>
+
+  <div class="canvas-container">
+    <canvas id="gameCanvas"></canvas>
+  </div>
+
+  <script src="util.js"></script>
   <script src="controls.js"></script>
   <script src="entity.js"></script>
   <script src="mario.js" type="module"></script>
@@ -21,7 +34,5 @@
   <script src="question.js"></script>
   <script src="ground.js"></script>
   <script src="main.js" type="module"></script>
-  <img src="mario.png" height="0" width="0" />
-  <img src="marioflip.png" height="0" width="0" />
 </body>
-</bg>
+</html>
