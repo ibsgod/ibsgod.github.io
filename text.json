@@ -44,6 +44,13 @@
   "Experience":
   [
     {
+      "title": "X (formerly Twitter)",
+      "points": [
+        "Incoming Software Engineer",
+        "Core Services Team"
+      ]
+    },
+    {
       "title": "ArenaX Labs",
       "points": [
         "Game Developer - TypeScript, ThreeJS, Python",
