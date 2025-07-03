@@ -47,9 +47,10 @@
       "title": "Epic Games",
       "points": [
         "Unreal Engine Programmer - C++",
-        "Optimized network replication and engine systems for the Iris networking system",
-        "Resolved complex engine-level issues to improve test reliability and network performance",
-        "Built internal tools for test automation and backward compatibility"
+        "Worked on the Iris networking system",
+        "Fixing engine-level issues for UE5 network performance",
+        "Built internal tools for test automation and backward compatibility",
+        "Optimized replay tools and test reliability"
       ]
     },
     {
