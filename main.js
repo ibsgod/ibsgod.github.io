@@ -127,6 +127,34 @@ function handleJoystickMove(evt) {
   setMarioControlsFromJoystick(knobX, knobY);
 }
 
+// Touch support for joystick
+joystickBase.addEventListener('touchstart', function(e) {
+  joystickActive = true;
+  const rect = joystickBase.getBoundingClientRect();
+  joystickCenter = {
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2
+  };
+  if (e.touches.length > 0) {
+    handleJoystickMove(e.touches[0]);
+  }
+}, { passive: false });
+
+joystickBase.addEventListener('touchmove', function(e) {
+  if (!joystickActive) return;
+  if (e.touches.length > 0) {
+    handleJoystickMove(e.touches[0]);
+  }
+  e.preventDefault();
+}, { passive: false });
+
+joystickBase.addEventListener('touchend', function(e) {
+  joystickActive = false;
+  joystickKnob.style.left = '25px';
+  joystickKnob.style.top = '25px';
+  resetMarioControls();
+}, { passive: false });
+
 // Drawing function
 function draw() {
     gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
