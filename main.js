@@ -52,6 +52,81 @@ document.onmousemove = (event) => {
     });
 };
 
+// Joystick logic for mobile/touch devices
+const joystickContainer = document.getElementById('joystick-container');
+const joystickBase = document.getElementById('joystick-base');
+const joystickKnob = document.getElementById('joystick-knob');
+let joystickActive = false;
+let joystickCenter = { x: 0, y: 0 };
+let joystickRadius = 50; // base radius
+
+function isTouchDevice() {
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
+joystickContainer.style.display = 'block';
+
+function setMarioControlsFromJoystick(dx, dy) {
+  // Deadzone
+  const deadzone = 10;
+  m.controls.left = dx < -deadzone;
+  m.controls.right = dx > deadzone;
+  m.controls.up = dy < -deadzone;
+  m.controls.down = dy > deadzone;
+}
+
+function resetMarioControls() {
+  m.controls.left = false;
+  m.controls.right = false;
+  m.controls.up = false;
+  m.controls.down = false;
+}
+
+// Mouse support for joystick
+let mouseDown = false;
+joystickBase.addEventListener('mousedown', function(e) {
+  mouseDown = true;
+  const rect = joystickBase.getBoundingClientRect();
+  joystickCenter = {
+    x: rect.left + rect.width / 2,
+    y: rect.top + rect.height / 2
+  };
+  handleJoystickMove(e);
+});
+
+document.addEventListener('mousemove', function(e) {
+  if (!mouseDown) return;
+  handleJoystickMove(e);
+});
+
+document.addEventListener('mouseup', function(e) {
+  if (!mouseDown) return;
+  mouseDown = false;
+  joystickKnob.style.left = '25px';
+  joystickKnob.style.top = '25px';
+  resetMarioControls();
+});
+
+function handleJoystickMove(evt) {
+  let dx, dy;
+  if (evt.touches && evt.touches.length > 0) {
+    dx = evt.touches[0].clientX - joystickCenter.x;
+    dy = evt.touches[0].clientY - joystickCenter.y;
+  } else {
+    dx = evt.clientX - joystickCenter.x;
+    dy = evt.clientY - joystickCenter.y;
+  }
+  // Clamp to joystick radius
+  let dist = Math.sqrt(dx*dx + dy*dy);
+  let angle = Math.atan2(dy, dx);
+  let clampedDist = Math.min(dist, joystickRadius);
+  let knobX = Math.cos(angle) * clampedDist;
+  let knobY = Math.sin(angle) * clampedDist;
+  joystickKnob.style.left = (25 + knobX) + 'px';
+  joystickKnob.style.top = (25 + knobY) + 'px';
+  setMarioControlsFromJoystick(knobX, knobY);
+}
+
 // Drawing function
 function draw() {
     gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
