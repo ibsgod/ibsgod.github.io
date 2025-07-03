@@ -84,7 +84,9 @@ class Entity {
       for (let j = i + 1; j < Entity.allEntities.length; j++) {
         let obj1 = Entity.allEntities[i]
         let obj2 = Entity.allEntities[j]
-        let collision = Entity.allEntities[i].collide(obj2)
+        let collision = obj1.collide(obj2)
+        if (collision && obj2.name == "mario")
+          console.log(obj1.name, obj2.name, collision)
         if (collision) {
           obj1.collided[obj2.name] = collision
           obj2.collided[obj1.name] = Entity.opposite(collision)
@@ -110,16 +112,16 @@ class Entity {
               obj2.onGround = obj1
             }
             if (collision == "right") {
-              obj2.x = obj1.x - obj2.w
-            }
-            if (collision == "left") {
               obj2.x = obj1.x + obj1.w
             }
+            if (collision == "left") {
+              obj2.x = obj1.x - obj2.w
+            }
             if (collision == "up") {
-              obj2.y = obj1.y + obj1.h
+              obj2.y = obj1.y - obj2.h
             }
             if (collision == "down") {
-              obj2.y = obj1.y - obj2.h
+              obj2.y = obj1.y + obj1.h
             }
           }
         }
@@ -128,3 +130,6 @@ class Entity {
 
   }
 }
+
+
+export default Entity;

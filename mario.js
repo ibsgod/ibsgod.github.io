@@ -1,3 +1,4 @@
+import Entity from './entity.js';
 
 class Mario extends Entity {
   constructor(x, y, w, h) {

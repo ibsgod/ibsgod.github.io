@@ -44,10 +44,21 @@
   "Experience":
   [
     {
+      "title": "Epic Games",
+      "points": [
+        "Unreal Engine Programmer - C++",
+        "Optimized network replication and engine systems for the Iris networking system",
+        "Resolved complex engine-level issues to improve test reliability and network performance",
+        "Built internal tools for test automation and backward compatibility"
+      ]
+    },
+    {
       "title": "X (formerly Twitter)",
       "points": [
-        "Incoming Software Engineer",
-        "Core Services Team"
+        "Software Engineer - Scala, Kotlin, Swift, React",
+        "Led the migration for 2FA from SMS and security keys to passkeys, impacting 250k+ active users",
+        "Developed backend services, web flows, and mobile screens for seamless passkey enrollment and migration",
+        "Eliminated cross-domain redirects between twitter.com and x.com"
       ]
     },
     {
@@ -88,7 +99,7 @@
       "points": [
         ""
       ],
-      "link": "3B_sankeeth.pdf"
+      "link": "4A_sankeeth.pdf"
     },
     {
       "title": "GitHub",
@@ -103,6 +114,26 @@
         ""
       ],
       "link": "https://www.linkedin.com/in/sankeeth-ganeswaran-7a9418183/"
+    }
+  ],
+  "Other Facts": [
+    {
+      "title": "Volleyball",
+      "points": [
+        "I love playing volleyball and frisbee!"
+      ]
+    },
+    {
+      "title": "Anime",
+      "points": [
+        "I love video games (obviously) and anime :)"
+      ]
+    },
+    {
+      "title": "Stick Figure Animation",
+      "points": [
+        "I love making stick figure animations!"
+      ]
     }
   ]
 }
