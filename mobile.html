@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sankeeth's Portfolio (Mobile)</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      margin: 0;
+      font-family: 'YourFontName', Arial, sans-serif;
+      color: #222;
+      min-height: 100vh;
+    }
+    .mobile-header {
+      text-align: center;
+      padding: 40px 20px 20px 20px;
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      margin-bottom: 20px;
+    }
+    .mobile-header h1 {
+      margin: 0;
+      font-size: 2.2em;
+      color: #fff;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-weight: bold;
+    }
+    .mobile-header p {
+      margin: 8px 0 0 0;
+      color: rgba(255,255,255,0.9);
+      font-size: 1.1em;
+    }
+    .mobile-section {
+      margin: 0 0 32px 0;
+      padding: 0 16px;
+      animation: fadeInUp 0.6s ease-out;
+    }
+    .mobile-section h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .mobile-section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, #ff6b6b, #4ecdc4);
+      border-radius: 2px;
+    }
+    .mobile-card {
+      background: rgba(255,255,255,0.95);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      padding: 24px 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(10px);
+    }
+    .mobile-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    .mobile-card h3 {
+      margin: 0 0 12px 0;
+      font-size: 1.3em;
+      color: #4b47b5;
+      font-weight: bold;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 8px;
+    }
+    .mobile-card a {
+      color: #6c63ff;
+      text-decoration: none;
+      word-break: break-all;
+      background: linear-gradient(90deg, #6c63ff, #4ecdc4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-weight: 500;
+    }
+    .mobile-card a:hover {
+      text-decoration: underline;
+    }
+    .mobile-card ul {
+      padding-left: 20px;
+      margin: 0;
+    }
+    .mobile-card li {
+      margin-bottom: 8px;
+      font-size: 1em;
+      line-height: 1.5;
+      color: #555;
+    }
+    .mobile-card li::marker {
+      color: #6c63ff;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .mobile-section:nth-child(2) { animation-delay: 0.1s; }
+    .mobile-section:nth-child(3) { animation-delay: 0.2s; }
+    .mobile-section:nth-child(4) { animation-delay: 0.3s; }
+    .mobile-section:nth-child(5) { animation-delay: 0.4s; }
+  </style>
+</head>
+<body>
+  <div class="mobile-header">
+    <h1>Sankeeth Ganeswaran</h1>
+    <p>Software & Game Developer</p>
+  </div>
+  <div class="mobile-section" id="projects-section">
+    <h2>Projects</h2>
+    <div id="projects-list"></div>
+  </div>
+  <div class="mobile-section" id="experience-section">
+    <h2>Experience</h2>
+    <div id="experience-list"></div>
+  </div>
+  <div class="mobile-section" id="links-section">
+    <h2>Links</h2>
+    <div id="links-list"></div>
+  </div>
+  <div class="mobile-section" id="facts-section">
+    <h2>Other Facts</h2>
+    <div id="facts-list"></div>
+  </div>
+  <script>
+    fetch('text.json')
+      .then(response => response.json())
+      .then(data => {
+        // Projects
+        const projectsList = document.getElementById('projects-list');
+        data.Projects.forEach(proj => {
+          const card = document.createElement('div');
+          card.className = 'mobile-card';
+          card.innerHTML = `<h3>${proj.title}</h3>`;
+          if (proj.link) {
+            card.innerHTML += `<a href="${proj.link}" target="_blank">${proj.link}</a>`;
+          }
+          if (proj.points && proj.points.length) {
+            const ul = document.createElement('ul');
+            proj.points.forEach(pt => {
+              if (pt) {
+                const li = document.createElement('li');
+                li.textContent = pt;
+                ul.appendChild(li);
+              }
+            });
+            card.appendChild(ul);
+          }
+          projectsList.appendChild(card);
+        });
+        // Experience
+        const expList = document.getElementById('experience-list');
+        data.Experience.forEach(exp => {
+          const card = document.createElement('div');
+          card.className = 'mobile-card';
+          card.innerHTML = `<h3>${exp.title}</h3>`;
+          if (exp.points && exp.points.length) {
+            const ul = document.createElement('ul');
+            exp.points.forEach(pt => {
+              if (pt) {
+                const li = document.createElement('li');
+                li.textContent = pt;
+                ul.appendChild(li);
+              }
+            });
+            card.appendChild(ul);
+          }
+          expList.appendChild(card);
+        });
+        // Links
+        const linksList = document.getElementById('links-list');
+        data.Links.forEach(link => {
+          const card = document.createElement('div');
+          card.className = 'mobile-card';
+          card.innerHTML = `<h3>${link.title}</h3>`;
+          if (link.link) {
+            card.innerHTML += `<a href="${link.link}" target="_blank">${link.link}</a>`;
+          }
+          linksList.appendChild(card);
+        });
+        // Other Facts
+        const factsList = document.getElementById('facts-list');
+        data["Other Facts"].forEach(fact => {
+          const card = document.createElement('div');
+          card.className = 'mobile-card';
+          card.innerHTML = `<h3>${fact.title}</h3>`;
+          if (fact.points && fact.points.length) {
+            const ul = document.createElement('ul');
+            fact.points.forEach(pt => {
+              if (pt) {
+                const li = document.createElement('li');
+                li.textContent = pt;
+                ul.appendChild(li);
+              }
+            });
+            card.appendChild(ul);
+          }
+          factsList.appendChild(card);
+        });
+      });
+  </script>
+</body>
+</html> 
