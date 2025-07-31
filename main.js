@@ -3,6 +3,7 @@ import Mario from '/mario.js';
 import Goomba from './goomba.js';
 import Ground from './ground.js';
 import Question from './question.js';
+import Luigi from './luigi.js';
 
 const gameCanvas = document.getElementById("gameCanvas");
 const gameCtx = gameCanvas.getContext("2d");
@@ -19,11 +20,25 @@ const cameraSpeed = 0.1; // How smoothly the camera follows Mario
 // Update camera threshold on window resize
 window.addEventListener('resize', () => {
     cameraThreshold = window.innerWidth * 0.3;
+    
+    // Update Luigi positions when window is resized
+    const thirdBlockX = gameCanvas.width / 4 * 3 / 2;
+    const halfScreenWidth = window.innerWidth / 2;
+    const fullScreenWidth = window.innerWidth;
+    
+    if (luigi1 && luigi2 && luigi3 && luigi4 && luigi5) {
+        luigi1.x = thirdBlockX + halfScreenWidth;
+        luigi2.x = thirdBlockX + halfScreenWidth + fullScreenWidth;
+        luigi3.x = thirdBlockX + halfScreenWidth + fullScreenWidth * 2;
+        luigi4.x = thirdBlockX + halfScreenWidth + fullScreenWidth * 3;
+        luigi5.x = thirdBlockX + halfScreenWidth + fullScreenWidth * 4;
+    }
 });
 
 // Create game entities
 let m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
-let g = new Ground(0, gameCanvas.height - 100, gameCanvas.width * 2 / 2, 1000);
+// Extend ground to cover the full camera range (6x screen width total)
+let g = new Ground(0, gameCanvas.height - 100, window.innerWidth * 6, 1000);
 let q1 = new Question(gameCanvas.width / 4 / 2, gameCanvas.height - 200, 25, 25, "Projects");
 let q2 = new Question(gameCanvas.width / 4 * 2 / 2, gameCanvas.height - 200, 25, 25, "Experience");
 let q3 = new Question(gameCanvas.width / 4 * 3 / 2, gameCanvas.height - 200, 25, 25, "Links");
@@ -33,6 +48,26 @@ let goomba1 = new Goomba(200, gameCanvas.height - 125, 25, 25, 150, 400, "goomba
 let goomba2 = new Goomba(600, gameCanvas.height - 125, 25, 25, 550, 800, "goomba2");
 let goomba3 = new Goomba(1000, gameCanvas.height - 125, 25, 25, 950, 1200, "goomba3");
 let goombaCount = 3;
+
+// Add multiple Luigi characters with progressively more humorous messages
+const thirdBlockX = gameCanvas.width / 4 * 3 / 2;
+const halfScreenWidth = window.innerWidth / 2; // First Luigi is half screen away
+const fullScreenWidth = window.innerWidth; // Subsequent Luigi characters are full screen apart
+
+let luigi1 = new Luigi(thirdBlockX + halfScreenWidth, gameCanvas.height - 125, 25, 25);
+let luigi2 = new Luigi(thirdBlockX + halfScreenWidth + fullScreenWidth, gameCanvas.height - 125, 25, 25);
+let luigi3 = new Luigi(thirdBlockX + halfScreenWidth + fullScreenWidth * 2, gameCanvas.height - 125, 25, 25);
+let luigi4 = new Luigi(thirdBlockX + halfScreenWidth + fullScreenWidth * 3, gameCanvas.height - 125, 25, 25);
+let luigi5 = new Luigi(thirdBlockX + halfScreenWidth + fullScreenWidth * 4, gameCanvas.height - 125, 25, 25);
+
+// Set custom messages for each Luigi
+luigi1.originalMessage = "There's nothing left here!";
+luigi2.originalMessage = "No really, there's nothing";
+luigi3.originalMessage = "Sankeeth ran out of ideas";
+luigi4.originalMessage = "Bro stop this is the end";
+luigi5.originalMessage = "If you're this bored please just hit Sankeeth up, he needs friends anyway";
+luigi5.isLastLuigi = true; // Mark the last Luigi
+
 // Array of blocks
 let blocks = [q1, q2, q3];
 let goombas = [goomba1, goomba2, goomba3];
@@ -173,9 +208,15 @@ function updateCamera() {
     // Calculate Mario's screen position
     const marioScreenX = m.x - cameraX;
     
-    // If Mario is past the threshold, move camera
+    // If Mario is past the threshold, move camera right
     if (marioScreenX > cameraThreshold) {
         const targetCameraX = m.x - cameraThreshold;
+        cameraX += (targetCameraX - cameraX) * cameraSpeed;
+    }
+    
+    // If Mario is near the left edge, move camera left
+    if (marioScreenX < window.innerWidth * 0.2) {
+        const targetCameraX = m.x - window.innerWidth * 0.2;
         cameraX += (targetCameraX - cameraX) * cameraSpeed;
     }
     
@@ -185,10 +226,16 @@ function updateCamera() {
     }
     
     // Don't let camera go too far right (keep right boundary)
-    const maxCameraX = gameCanvas.width - window.innerWidth;
+    // Allow camera to go further right than canvas width to reach all Luigi characters
+    const maxCameraX = (gameCanvas.width - window.innerWidth) + (window.innerWidth * 4); // Allow 4 more screen widths
     if (cameraX > maxCameraX) {
         cameraX = maxCameraX;
     }
+}
+
+// Function to reset camera to Mario's position
+function resetCamera() {
+    cameraX = Math.max(0, m.x - window.innerWidth * 0.5); // Center Mario on screen
 }
 
 // Drawing function
@@ -231,12 +278,13 @@ function animate(time) {
                 let sound = new Audio("kill.mp3")
                 sound.play();
             }
-            else {
-                Entity.allEntities.splice(Entity.allEntities.indexOf(m), 1);
-                m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
-                let sound = new Audio("waaa.mp3")
-                sound.play();
-            }
+                    else {
+            Entity.allEntities.splice(Entity.allEntities.indexOf(m), 1);
+            m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
+            resetCamera(); // Reset camera when Mario dies
+            let sound = new Audio("waaa.mp3")
+            sound.play();
+        }
         }
     }
 

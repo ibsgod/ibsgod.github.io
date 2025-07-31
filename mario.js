@@ -4,7 +4,7 @@ class Mario extends Entity {
   constructor(x, y, w, h) {
     super(x, y, w, h, "mario", "mario.png") 
     this.controls = new Controls("KEYS")
-    this.xspd = 2
+    this.xspd = 18
     this.yspd = 0
     this.gravity = 0
     this.onGround = null
