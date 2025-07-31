@@ -85,8 +85,6 @@ class Entity {
         let obj1 = Entity.allEntities[i]
         let obj2 = Entity.allEntities[j]
         let collision = obj1.collide(obj2)
-        if (collision && obj2.name == "mario")
-          console.log(obj1.name, obj2.name, collision)
         if (collision) {
           obj1.collided[obj2.name] = collision
           obj2.collided[obj1.name] = Entity.opposite(collision)
