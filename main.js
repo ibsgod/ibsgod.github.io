@@ -11,6 +11,16 @@ const gameCtx = gameCanvas.getContext("2d");
 gameCanvas.width = window.innerWidth * 2;
 gameCanvas.height = window.innerHeight;
 
+// Camera system for horizontal scrolling
+let cameraX = 0;
+let cameraThreshold = window.innerWidth * 0.3; // Start scrolling when Mario is 30% from the right edge
+const cameraSpeed = 0.1; // How smoothly the camera follows Mario
+
+// Update camera threshold on window resize
+window.addEventListener('resize', () => {
+    cameraThreshold = window.innerWidth * 0.3;
+});
+
 // Create game entities
 let m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
 let g = new Ground(0, gameCanvas.height - 100, gameCanvas.width * 2 / 2, 1000);
@@ -43,7 +53,10 @@ let rect = gameCanvas.getBoundingClientRect();
 // Handle mouse movement
 document.onmousemove = (event) => {
     blocks.forEach((block) => {
-        if (pointInBox(event.clientX - rect.left, event.clientY - rect.top, {x: block.x, y: block.y, w: block.w, h: block.h})) {
+        // Account for camera offset when checking mouse position
+        const adjustedX = event.clientX - rect.left + cameraX;
+        const adjustedY = event.clientY - rect.top;
+        if (pointInBox(adjustedX, adjustedY, {x: block.x, y: block.y, w: block.w, h: block.h})) {
             if (currSection != block.section) {
               block.animating = true
                 changeSection(block.section);
@@ -155,15 +168,50 @@ joystickBase.addEventListener('touchend', function(e) {
   resetMarioControls();
 }, { passive: false });
 
+// Camera update function
+function updateCamera() {
+    // Calculate Mario's screen position
+    const marioScreenX = m.x - cameraX;
+    
+    // If Mario is past the threshold, move camera
+    if (marioScreenX > cameraThreshold) {
+        const targetCameraX = m.x - cameraThreshold;
+        cameraX += (targetCameraX - cameraX) * cameraSpeed;
+    }
+    
+    // Don't let camera go negative (keep left boundary)
+    if (cameraX < 0) {
+        cameraX = 0;
+    }
+    
+    // Don't let camera go too far right (keep right boundary)
+    const maxCameraX = gameCanvas.width - window.innerWidth;
+    if (cameraX > maxCameraX) {
+        cameraX = maxCameraX;
+    }
+}
+
 // Drawing function
 function draw() {
     gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
+    
+    // Save the current context state
+    gameCtx.save();
+    
+    // Apply camera offset
+    gameCtx.translate(-cameraX, 0);
+    
+    // Draw all entities with camera offset
     Entity.allEntities.forEach((entity) => entity.draw(gameCtx));
+    
+    // Restore the context state
+    gameCtx.restore();
 }
 
 // Animation loop
 function animate(time) {    
     m.move(); // Update Mario's position
+    updateCamera(); // Update camera position
     draw(); // Clear and redraw canvas
     Entity.update(); // Update all entities
     Entity.allEntities.forEach((entity) => entity.tick()); // Update entity states

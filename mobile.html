@@ -121,9 +121,43 @@
     .mobile-section:nth-child(3) { animation-delay: 0.2s; }
     .mobile-section:nth-child(4) { animation-delay: 0.3s; }
     .mobile-section:nth-child(5) { animation-delay: 0.4s; }
+    
+    /* Desktop site button styles */
+    #desktop-site-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        border: 2px solid #6c63ff;
+        border-radius: 30px;
+        padding: 15px 20px;
+        font-family: 'YourFontName', Arial, sans-serif;
+        font-size: 16px;
+        color: #6c63ff;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+    }
+    
+    #desktop-site-btn:hover {
+        background: #6c63ff;
+        color: white;
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(108, 99, 255, 0.4);
+    }
+    
+    #desktop-site-btn:active {
+        transform: scale(0.95);
+    }
   </style>
 </head>
 <body>
+  <button id="desktop-site-btn" onclick="window.location.href='index.html'">
+    💻 Desktop Site
+  </button>
+  
   <div class="mobile-header">
     <h1>Sankeeth Ganeswaran</h1>
     <p>Software & Game Developer</p>
