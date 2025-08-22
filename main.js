@@ -257,7 +257,27 @@ function draw() {
 
 // Animation loop
 function animate(time) {    
+    // Check how many Luigi characters Mario is to the right of and adjust speed
+    let speedMultiplier = 1; // Base multiplier
+    if (m.x > luigi1.x) speedMultiplier *= 2;
+    if (m.x > luigi2.x) speedMultiplier *= 2;
+    if (m.x > luigi3.x) speedMultiplier *= 2;
+    if (m.x > luigi4.x) speedMultiplier *= 2;
+    if (m.x > luigi5.x) speedMultiplier *= 2;
+    
+    m.xspd = 2 * speedMultiplier; // Base speed (2) multiplied by the multiplier
+    
     m.move(); // Update Mario's position
+    
+    // Check if Mario fell off the screen (below the canvas height)
+    if (m.y > gameCanvas.height) {
+        // Mario fell off, reset him
+        Entity.allEntities.splice(Entity.allEntities.indexOf(m), 1);
+        m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
+        resetCamera(); // Reset camera when Mario dies
+        let sound = new Audio("waaa.mp3")
+        sound.play();
+    }
     updateCamera(); // Update camera position
     draw(); // Clear and redraw canvas
     Entity.update(); // Update all entities
