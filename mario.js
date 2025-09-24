@@ -11,16 +11,19 @@ class Mario extends Entity {
     this.jumpRelease = true
   }
   move() {
+    // Use delta time for consistent movement across different frame rates
+    const deltaTime = this.deltaTime || (1/60); // Default to 60fps if deltaTime not set
+    
     if (this.controls.right) {
-      this.x += this.xspd;
+      this.x += this.xspd * deltaTime * 60; // Scale by 60 for 60fps equivalent
       this.image.src = "mario.png"
     }
     if (this.controls.left) {
-      this.x -= this.xspd;
+      this.x -= this.xspd * deltaTime * 60; // Scale by 60 for 60fps equivalent
       this.image.src = "marioflip.png"
     }
     if (!this.onGround) {
-      this.gravity += 0.005
+      this.gravity += 0.005 * deltaTime * 60; // Scale gravity by delta time
       this.yspd += this.gravity
     }
     else {
@@ -37,7 +40,7 @@ class Mario extends Entity {
     else if (!this.controls.up) {
       this.jumpRelease = true
     }
-    this.y += this.yspd
+    this.y += this.yspd * deltaTime * 60; // Scale vertical movement by delta time
   } 
 
 }

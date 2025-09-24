@@ -10,7 +10,10 @@ class Goomba extends Entity {
   }
 
   tick() {
-    this.x += this.speed * this.direction;
+    // Use delta time for consistent movement across different frame rates
+    const deltaTime = this.deltaTime || (1/60); // Default to 60fps if deltaTime not set
+    
+    this.x += this.speed * this.direction * deltaTime * 60; // Scale by 60 for 60fps equivalent
     if (this.x <= this.patrolMinX) {
       this.x = this.patrolMinX;
       this.direction = 1;

@@ -35,6 +35,7 @@ window.addEventListener('resize', () => {
     }
 });
 
+
 // Create game entities
 let m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
 // Extend ground to cover the full camera range (6x screen width total)
@@ -203,21 +204,21 @@ joystickBase.addEventListener('touchend', function(e) {
   resetMarioControls();
 }, { passive: false });
 
-// Camera update function
-function updateCamera() {
+// Camera update function with delta time
+function updateCamera(deltaTime) {
     // Calculate Mario's screen position
     const marioScreenX = m.x - cameraX;
     
     // If Mario is past the threshold, move camera right
     if (marioScreenX > cameraThreshold) {
         const targetCameraX = m.x - cameraThreshold;
-        cameraX += (targetCameraX - cameraX) * cameraSpeed;
+        cameraX += (targetCameraX - cameraX) * cameraSpeed * deltaTime * 60; // Scale by 60 for 60fps equivalent
     }
     
     // If Mario is near the left edge, move camera left
     if (marioScreenX < window.innerWidth * 0.2) {
         const targetCameraX = m.x - window.innerWidth * 0.2;
-        cameraX += (targetCameraX - cameraX) * cameraSpeed;
+        cameraX += (targetCameraX - cameraX) * cameraSpeed * deltaTime * 60; // Scale by 60 for 60fps equivalent
     }
     
     // Don't let camera go negative (keep left boundary)
@@ -238,7 +239,7 @@ function resetCamera() {
     cameraX = Math.max(0, m.x - window.innerWidth * 0.5); // Center Mario on screen
 }
 
-// Drawing function
+// Drawing function with viewport culling for better performance
 function draw() {
     gameCtx.clearRect(0, 0, gameCanvas.width, gameCanvas.height);
     
@@ -248,15 +249,57 @@ function draw() {
     // Apply camera offset
     gameCtx.translate(-cameraX, 0);
     
-    // Draw all entities with camera offset
-    Entity.allEntities.forEach((entity) => entity.draw(gameCtx));
+    // Viewport culling - only draw entities that are visible on screen
+    const viewportLeft = cameraX;
+    const viewportRight = cameraX + window.innerWidth;
+    const viewportTop = 0;
+    const viewportBottom = window.innerHeight;
+    
+    // Batch entities by type for better rendering performance
+    const terrainEntities = [];
+    const characterEntities = [];
+    const otherEntities = [];
+    
+    // Categorize and filter visible entities
+    Entity.allEntities.forEach((entity) => {
+        // Check if entity is within viewport bounds
+        if (entity.x + entity.w >= viewportLeft && 
+            entity.x <= viewportRight && 
+            entity.y + entity.h >= viewportTop && 
+            entity.y <= viewportBottom) {
+            
+            // Batch by type for potential optimization
+            if (Entity.terrainNames.includes(entity.name)) {
+                terrainEntities.push(entity);
+            } else if (entity.name === "mario" || entity.name.includes("goomba") || entity.name.includes("luigi")) {
+                characterEntities.push(entity);
+            } else {
+                otherEntities.push(entity);
+            }
+        }
+    });
+    
+    // Draw in batches (terrain first, then characters, then others)
+    terrainEntities.forEach(entity => entity.draw(gameCtx));
+    characterEntities.forEach(entity => entity.draw(gameCtx));
+    otherEntities.forEach(entity => entity.draw(gameCtx));
     
     // Restore the context state
     gameCtx.restore();
 }
 
-// Animation loop
-function animate(time) {    
+// Delta time-based animation loop
+let lastTime = 0;
+
+// Animation loop with delta time
+function animate(time) {
+    // Calculate delta time (time since last frame in seconds)
+    const deltaTime = (time - lastTime) / 1000; // Convert milliseconds to seconds
+    lastTime = time;
+    
+    // Cap delta time to prevent large jumps when tab is inactive
+    const cappedDeltaTime = Math.min(deltaTime, 1/30); // Max 30 FPS equivalent
+    
     // Check how many Luigi characters Mario is to the right of and adjust speed
     let speedMultiplier = 1; // Base multiplier
     if (m.x > luigi1.x) speedMultiplier *= 2;
@@ -266,6 +309,7 @@ function animate(time) {
     if (m.x > luigi5.x) speedMultiplier *= 2;
     
     m.xspd = 2 * speedMultiplier; // Base speed (2) multiplied by the multiplier
+    m.deltaTime = cappedDeltaTime; // Pass delta time to Mario
     
     m.move(); // Update Mario's position
     
@@ -278,10 +322,13 @@ function animate(time) {
         let sound = new Audio("waaa.mp3")
         sound.play();
     }
-    updateCamera(); // Update camera position
+    updateCamera(cappedDeltaTime); // Update camera position with delta time
     draw(); // Clear and redraw canvas
     Entity.update(); // Update all entities
-    Entity.allEntities.forEach((entity) => entity.tick()); // Update entity states
+    Entity.allEntities.forEach((entity) => {
+        entity.deltaTime = cappedDeltaTime; // Pass delta time to all entities
+        entity.tick(); // Update entity states
+    });
     for (let index = 0; index < 3; index++) {
         let goombaIndex = index - (goombaCount - goombas.length)
         let collision = m.collided["goomba" + (index + 1)]
