@@ -392,6 +392,7 @@ function animate(time) {
         m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
         resetCamera(); // Reset camera when Mario dies
         let sound = new Audio("waaa.mp3")
+        sound.volume = 0.08; // Set to half volume
         sound.play();
     }
     updateCamera(cappedDeltaTime); // Update camera position with delta time
@@ -422,6 +423,7 @@ function animate(time) {
             m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
             resetCamera(); // Reset camera when Mario dies
             let sound = new Audio("waaa.mp3")
+            sound.volume = 0.08; // Set to half volume
             sound.play();
         }
         }
