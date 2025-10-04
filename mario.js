@@ -14,13 +14,31 @@ class Mario extends Entity {
     // Use delta time for consistent movement across different frame rates
     const deltaTime = this.deltaTime || (1/60); // Default to 60fps if deltaTime not set
     
+    // Get camera position from the global scope (assuming it's accessible)
+    const cameraX = window.gameCameraX || 0;
+    const screenWidth = window.innerWidth;
+    
     if (this.controls.right) {
-      this.x += this.xspd * deltaTime * 60; // Scale by 60 for 60fps equivalent
-      this.image.src = "mario.png"
+      // Check if Mario would move past the right edge of the screen
+      const newX = this.x + this.xspd * deltaTime * 60;
+      const newScreenX = newX - cameraX;
+      
+      // Only move if Mario won't go past the right edge of the screen
+      if (newScreenX + this.w <= screenWidth) {
+        this.x = newX;
+        this.image.src = "mario.png"
+      }
     }
     if (this.controls.left) {
-      this.x -= this.xspd * deltaTime * 60; // Scale by 60 for 60fps equivalent
-      this.image.src = "marioflip.png"
+      // Check if Mario would move past the left edge of the screen
+      const newX = this.x - this.xspd * deltaTime * 60;
+      const newScreenX = newX - cameraX;
+      
+      // Only move if Mario won't go past the left edge of the screen
+      if (newScreenX >= 0) {
+        this.x = newX;
+        this.image.src = "marioflip.png"
+      }
     }
     if (!this.onGround) {
       this.gravity += 0.005 * deltaTime * 60; // Scale gravity by delta time
@@ -31,7 +49,7 @@ class Mario extends Entity {
       this.yspd = 0
     }
     if (this.controls.up && this.jumpRelease && this.onGround) {
-      this.yspd -= 4
+      this.yspd -= 5
       this.jumpRelease = false
       this.sound = new Audio("jump.mp3")
       this.sound.volume = 0.05

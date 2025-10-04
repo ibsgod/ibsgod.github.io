@@ -17,9 +17,68 @@ let cameraX = 0;
 let cameraThreshold = window.innerWidth * 0.3; // Start scrolling when Mario is 30% from the right edge
 const cameraSpeed = 0.1; // How smoothly the camera follows Mario
 
+// Make camera position globally accessible for Mario boundary checks
+window.gameCameraX = cameraX;
+
 // Update camera threshold on window resize
 window.addEventListener('resize', () => {
+    // Update canvas size to maintain aspect ratio
+    gameCanvas.width = window.innerWidth * 2;
+    gameCanvas.height = window.innerHeight;
+    
+    // Update camera threshold
     cameraThreshold = window.innerWidth * 0.3;
+    
+    // Update Mario's Y position to stay on ground
+    if (m) {
+        m.y = gameCanvas.height - 25; // Keep Mario on ground level
+    }
+    
+    // Update ground to cover the full camera range and maintain proper height
+    if (g) {
+        g.w = window.innerWidth * 6;
+        g.y = gameCanvas.height - 100; // Keep ground anchored to bottom of screen
+        g.h = 1000; // Maintain ground height
+    }
+    
+    // Update question block positions to maintain relative positioning
+    if (q1 && q2 && q3) {
+        q1.x = gameCanvas.width / 4 / 2;
+        q2.x = gameCanvas.width / 4 * 2 / 2;
+        q3.x = gameCanvas.width / 4 * 3 / 2;
+        
+        // Update question block Y positions to stay above ground
+        const newY = gameCanvas.height - 210;
+        q1.y = newY;
+        q2.y = newY;
+        q3.y = newY;
+        
+        // Update original Y positions to prevent falling
+        q1.origy = newY;
+        q2.origy = newY;
+        q3.origy = newY;
+    }
+    
+    // Update goomba positions to maintain relative spacing
+    if (goomba1 && goomba2 && goomba3) {
+        const screenWidth = window.innerWidth;
+        goomba1.x = screenWidth * 0.5; // 50% of screen width
+        goomba2.x = screenWidth * 1.5; // 150% of screen width
+        goomba3.x = screenWidth * 2.5; // 250% of screen width
+        
+        // Update goomba Y positions to stay on ground
+        goomba1.y = gameCanvas.height - 125;
+        goomba2.y = gameCanvas.height - 125;
+        goomba3.y = gameCanvas.height - 125;
+        
+        // Update goomba patrol ranges
+        goomba1.leftBound = goomba1.x - 50;
+        goomba1.rightBound = goomba1.x + 200;
+        goomba2.leftBound = goomba2.x - 50;
+        goomba2.rightBound = goomba2.x + 200;
+        goomba3.leftBound = goomba3.x - 50;
+        goomba3.rightBound = goomba3.x + 200;
+    }
     
     // Update Luigi positions when window is resized
     const thirdBlockX = gameCanvas.width / 4 * 3 / 2;
@@ -32,6 +91,13 @@ window.addEventListener('resize', () => {
         luigi3.x = thirdBlockX + halfScreenWidth + fullScreenWidth * 2;
         luigi4.x = thirdBlockX + halfScreenWidth + fullScreenWidth * 3;
         luigi5.x = thirdBlockX + halfScreenWidth + fullScreenWidth * 4;
+        
+        // Update Luigi Y positions to stay on ground
+        luigi1.y = gameCanvas.height - 125;
+        luigi2.y = gameCanvas.height - 125;
+        luigi3.y = gameCanvas.height - 125;
+        luigi4.y = gameCanvas.height - 125;
+        luigi5.y = gameCanvas.height - 125;
     }
 });
 
@@ -40,14 +106,16 @@ window.addEventListener('resize', () => {
 let m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
 // Extend ground to cover the full camera range (6x screen width total)
 let g = new Ground(0, gameCanvas.height - 100, window.innerWidth * 6, 1000);
-let q1 = new Question(gameCanvas.width / 4 / 2, gameCanvas.height - 200, 25, 25, "Projects");
-let q2 = new Question(gameCanvas.width / 4 * 2 / 2, gameCanvas.height - 200, 25, 25, "Experience");
-let q3 = new Question(gameCanvas.width / 4 * 3 / 2, gameCanvas.height - 200, 25, 25, "Links");
+let q1 = new Question(gameCanvas.width / 4 / 2, gameCanvas.height - 210, 25, 25, "Projects");
+let q2 = new Question(gameCanvas.width / 4 * 2 / 2, gameCanvas.height - 210, 25, 25, "Experience");
+let q3 = new Question(gameCanvas.width / 4 * 3 / 2, gameCanvas.height - 210, 25, 25, "Links");
 
 // After creating Mario and other entities:
-let goomba1 = new Goomba(200, gameCanvas.height - 125, 25, 25, 150, 400, "goomba1");
-let goomba2 = new Goomba(600, gameCanvas.height - 125, 25, 25, 550, 800, "goomba2");
-let goomba3 = new Goomba(1000, gameCanvas.height - 125, 25, 25, 950, 1200, "goomba3");
+// Use relative positioning for goombas based on screen width
+const screenWidth = window.innerWidth;
+let goomba1 = new Goomba(screenWidth * 0.5, gameCanvas.height - 125, 25, 25, screenWidth * 0.5 - 50, screenWidth * 0.5 + 200, "goomba1");
+let goomba2 = new Goomba(screenWidth * 1.5, gameCanvas.height - 125, 25, 25, screenWidth * 1.5 - 50, screenWidth * 1.5 + 200, "goomba2");
+let goomba3 = new Goomba(screenWidth * 2.5, gameCanvas.height - 125, 25, 25, screenWidth * 2.5 - 50, screenWidth * 2.5 + 200, "goomba3");
 let goombaCount = 3;
 
 // Add multiple Luigi characters with progressively more humorous messages
@@ -232,11 +300,15 @@ function updateCamera(deltaTime) {
     if (cameraX > maxCameraX) {
         cameraX = maxCameraX;
     }
+    
+    // Update global camera position for Mario boundary checks
+    window.gameCameraX = cameraX;
 }
 
 // Function to reset camera to Mario's position
 function resetCamera() {
     cameraX = Math.max(0, m.x - window.innerWidth * 0.5); // Center Mario on screen
+    window.gameCameraX = cameraX; // Update global camera position
 }
 
 // Drawing function with viewport culling for better performance
