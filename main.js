@@ -59,19 +59,19 @@ window.addEventListener('resize', () => {
         q3.origy = newY;
     }
     
-    // Update goomba positions to maintain relative spacing
-    if (goomba1 && goomba2 && goomba3) {
-        const screenWidth = window.innerWidth;
-        goomba1.x = screenWidth * 0.5; // 50% of screen width
-        goomba2.x = screenWidth * 1.5; // 150% of screen width
-        goomba3.x = screenWidth * 2.5; // 250% of screen width
-        
-        // Update goomba Y positions to stay on ground
+    // Update goomba positions to be below corresponding question blocks
+    if (goomba1 && goomba2 && goomba3 && q1 && q2 && q3) {
+        // Align X with question blocks
+        goomba1.x = q1.x;
+        goomba2.x = q2.x;
+        goomba3.x = q3.x;
+
+        // Keep goombas on ground
         goomba1.y = gameCanvas.height - 125;
         goomba2.y = gameCanvas.height - 125;
         goomba3.y = gameCanvas.height - 125;
-        
-        // Update goomba patrol ranges
+
+        // Update goomba patrol ranges around their spawn
         goomba1.leftBound = goomba1.x - 50;
         goomba1.rightBound = goomba1.x + 200;
         goomba2.leftBound = goomba2.x - 50;
@@ -110,12 +110,10 @@ let q1 = new Question(gameCanvas.width / 4 / 2, gameCanvas.height - 210, 25, 25,
 let q2 = new Question(gameCanvas.width / 4 * 2 / 2, gameCanvas.height - 210, 25, 25, "Experience");
 let q3 = new Question(gameCanvas.width / 4 * 3 / 2, gameCanvas.height - 210, 25, 25, "Links");
 
-// After creating Mario and other entities:
-// Use relative positioning for goombas based on screen width
-const screenWidth = window.innerWidth;
-let goomba1 = new Goomba(screenWidth * 0.5, gameCanvas.height - 125, 25, 25, screenWidth * 0.5 - 50, screenWidth * 0.5 + 200, "goomba1");
-let goomba2 = new Goomba(screenWidth * 1.5, gameCanvas.height - 125, 25, 25, screenWidth * 1.5 - 50, screenWidth * 1.5 + 200, "goomba2");
-let goomba3 = new Goomba(screenWidth * 2.5, gameCanvas.height - 125, 25, 25, screenWidth * 2.5 - 50, screenWidth * 2.5 + 200, "goomba3");
+// After creating Mario and blocks, spawn goombas below the question blocks
+let goomba1 = new Goomba(q1.x, gameCanvas.height - 125, 25, 25, q1.x - 50, q1.x + 200, "goomba1");
+let goomba2 = new Goomba(q2.x, gameCanvas.height - 125, 25, 25, q2.x - 50, q2.x + 200, "goomba2");
+let goomba3 = new Goomba(q3.x, gameCanvas.height - 125, 25, 25, q3.x - 50, q3.x + 200, "goomba3");
 let goombaCount = 3;
 
 // Add multiple Luigi characters with progressively more humorous messages

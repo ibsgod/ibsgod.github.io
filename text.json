@@ -50,7 +50,8 @@
         "Worked on the Iris networking system",
         "Fixing engine-level issues for UE5 network performance",
         "Built internal tools for test automation and backward compatibility",
-        "Optimized replay tools and test reliability"
+        "Optimized replay tools and test reliability",
+        "Implemented a bandwidth allocator to drastically improve network performance in UE5"
       ]
     },
     {
@@ -100,7 +101,7 @@
       "points": [
         ""
       ],
-      "link": "4A_sankeeth.pdf"
+      "link": "4A_sankeeth (5).pdf"
     },
     {
       "title": "GitHub",
