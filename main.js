@@ -31,7 +31,7 @@ window.addEventListener('resize', () => {
     
     // Update Mario's Y position to stay on ground
     if (m) {
-        m.y = gameCanvas.height - 25; // Keep Mario on ground level
+        m.y = gameCanvas.height - 125; // Keep Mario on ground level (above ground at y = height - 100)
     }
     
     // Update ground to cover the full camera range and maintain proper height
@@ -416,14 +416,14 @@ function animate(time) {
                 let sound = new Audio("kill.mp3")
                 sound.play();
             }
-                    else {
-            Entity.allEntities.splice(Entity.allEntities.indexOf(m), 1);
-            m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
-            resetCamera(); // Reset camera when Mario dies
-            let sound = new Audio("waaa.mp3")
-            sound.volume = 0.08; // Set to half volume
-            sound.play();
-        }
+            else {
+              Entity.allEntities.splice(Entity.allEntities.indexOf(m), 1);
+              m = new Mario(25, (gameCanvas.height - 25) / 2, 25, 25);
+              resetCamera(); // Reset camera when Mario dies
+              let sound = new Audio("waaa.mp3")
+              sound.volume = 0.08; // Set to half volume
+              sound.play();
+          }
         }
     }
 

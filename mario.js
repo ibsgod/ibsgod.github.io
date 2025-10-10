@@ -49,7 +49,7 @@ class Mario extends Entity {
       this.yspd = 0
     }
     if (this.controls.up && this.jumpRelease && this.onGround) {
-      this.yspd -= 5
+      this.yspd -= 4
       this.jumpRelease = false
       this.sound = new Audio("jump.mp3")
       this.sound.volume = 0.05
