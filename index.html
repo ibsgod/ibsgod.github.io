@@ -7,6 +7,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <button id="mobile-site-btn" onclick="window.location.href='mobile.html'">
+    📱 Mobile Site
+  </button>
+  
   <div id="main">
     <h1 id="name">Sankeeth Ganeswaran</h1>
     <div class="alert-message">
@@ -26,14 +30,50 @@
     <canvas id="gameCanvas"></canvas>
   </div>
 
+  <div id="joystick-container" style="display:none;">
+    <div id="joystick-base">
+      <div id="joystick-knob"></div>
+    </div>
+  </div>
+
+  <div id="mobile-popup" style="display:none;">
+    <div id="mobile-popup-content">
+      <h2>Mobile Experience</h2>
+      <p>This site is best experienced on desktop. Would you like to view a mobile-friendly version?</p>
+      <button id="mobile-continue-btn">Continue here</button>
+      <button id="mobile-redirect-btn">Go to mobile site</button>
+    </div>
+  </div>
+
   <script src="util.js"></script>
   <script src="controls.js"></script>
-  <script src="entity.js"></script>
+  <script src="entity.js" type="module"></script>
   <script src="mario.js" type="module"></script>
-  <script src="arrow.js"></script>
-  <script src="question.js"></script>
-  <script src="ground.js"></script>
+  <script src="goomba.js" type="module"></script>
+  <script src="arrow.js" type="module"></script>
+  <script src="question.js" type="module"></script>
+  <script src="ground.js" type="module"></script>
   <script src="main.js" type="module"></script>
+  <script>
+  // Mobile detection and popup logic
+  function isMobileDevice() {
+    return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase());
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    if (isMobileDevice()) {
+      var popup = document.getElementById('mobile-popup');
+      popup.style.display = 'flex';
+      document.body.style.overflow = 'hidden';
+      document.getElementById('mobile-continue-btn').onclick = function() {
+        popup.style.display = 'none';
+        document.body.style.overflow = '';
+      };
+      document.getElementById('mobile-redirect-btn').onclick = function() {
+        window.location.href = 'mobile.html';
+      };
+    }
+  });
+  </script>
 </body>
 <img src="mario.png" width="0" height="0">
 <img src="marioflip.png" width="0" height="0">

@@ -1,3 +1,5 @@
+import Entity from './entity.js';
+
 class Question extends Entity {
   constructor(x, y, w, h, section) {
     super(x, y, w, h, "question", "question.png")
@@ -27,3 +29,5 @@ class Question extends Entity {
     }
   }
 }
+
+export default Question;

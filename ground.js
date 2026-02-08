@@ -1,3 +1,5 @@
+import Entity from './entity.js';
+
 class Ground extends Entity {
   constructor(x, y, w, h) {
     super(x, y, w, h, "ground", "ground.png")
@@ -12,3 +14,5 @@ class Ground extends Entity {
     }
   }
 }
+
+export default Ground;
